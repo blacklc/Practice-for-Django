@@ -1,0 +1,19 @@
+{% extends "base.html" %} {#继承基础模版#}
+{#在基础模版上二次定义应用模版#}
+{% block extrahead %}
+    <style>
+        body {
+            font-style: arial;
+        }
+        h1 {
+            text-align: center;
+        }
+        .job .title {
+            font-size: 120%;
+            font-weight: bold;
+        }
+        .job .posted {
+            font-style: italic;
+        }
+    </style>
+{% endblock %}

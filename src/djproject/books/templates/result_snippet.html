@@ -1,0 +1,10 @@
+<ul>
+	{% for p in publishers.itervalues %}
+		<li>{{p.name}}</li>
+		<li>{{p.address}}</li>
+		<li>{{p.city}}</li>
+		<li>{{p.state_province}}</li>
+		<li>{{p.country}}</li>
+		<li>{{p.website}}</li>
+	{% endfor %}
+</ul>

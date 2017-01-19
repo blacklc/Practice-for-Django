@@ -1,0 +1,47 @@
+{% extends "books_base.html" %} {#继承指定应用模版#}
+{% block title %}Books index{% endblock %}
+{% block content %}
+	{% load test_tag %} {#加载自定义模版标签文件名#}
+<div class="container">
+	<div class="dropdown">
+		{#使用javascript实现下拉框#}
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" onClick="dropDown()">
+			Search & form
+			<span class="caret"></span>
+		</button>
+		<script type="text/javascript"> 
+			function dropDown(){
+        		$('#dropdownMenu').dropdown();
+     		}
+     	</script>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+			<li role="presentation" class="dropdown-header">Search:</li>{#定义下拉框内标题#}
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="{{ search }}">search</a></li>
+			<li role="presentation" class="divider"></li>
+			<li role="presentation" class="dropdown-header">From:</li>{#定义下拉框内标题#}
+			<li role="presentation"><a role="menuitem" tabindex="-1" href="{{ contact_form }}">form</a></li>
+			<li role="presentation" class="divider"></li>
+			<li class="disabled" role="presentation"><a role="menuitem" tabindex="-1" href="#">disable select</a></li>{#定义下拉框内禁止点击的选项#}
+		</ul>
+	</div>
+	<p><a role="menuitem" tabindex="-1" href="{{ search }}">search</a></p>
+	<p><a role="menuitem" tabindex="-1" href="{{ contact_form }}">form</a></p>
+	<p><a href="{{ publisher_apress }}">publisher:Apress</a></p>
+	<p><a href="{{ publisher_apple }}">publisher:Apple</a></p>
+	<br/>
+	<p><a href="{{ authors_sunx }}">author:sunx</a></p>
+	<p><a href="{{ authors_jacktomas }}">author:jacktomas</a></p>
+	<p><a href="{{ authors_zz }}">author:zz</a></p>
+	<br/>
+	<p>{% test_tag "%Y-%m-%d %I:%M %p" %}</p>
+	<br/>
+	{% test_tag2 "%Y-%m-%d %I:%M %p" %}
+	<p>{{tag_context}}</p>
+	{% test_tag3 "%Y-%m-%d %I:%M %p" as tag3_context %}
+	<p>{{tag3_context}}</p>
+	{% test_comment %}
+	this is test text
+	{% endtest_comment %}
+	{{ test }}
+</div>
+{% endblock %}

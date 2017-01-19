@@ -1,0 +1,16 @@
+{% extends "base.html" %} {#继承指定应用模版#}
+{% block title %}register{% endblock %}
+{% block content %}
+	{% if form.errors %}
+		<p style="color:red;">
+			Please correct the error{{form.errors|pluralize}} below
+		</p>
+	{%endif%}
+	{#注意form的拼写#}
+	<form action="" method="post">{% csrf_token %}{#自定义应用使用action传url参数时，需注意在url路径最前边加上当前应用路径的前缀;action为空表示表单将提交给与当前页面相同的URL#}
+		<table class="table table-striped table-bordered table-hover table-responsive"> {#class依次含义为:使表格显示斑马条纹,显示边框，鼠标悬停行中有特效，使表格随窗口动态变换大小(响应式表格)#}
+			{{form.as_table}}
+		</table>
+		<input type="submit" value="Create User" class="btn btn-success btn-sm">
+	</form>
+{% endblock %}

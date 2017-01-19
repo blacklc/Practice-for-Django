@@ -1,0 +1,271 @@
+{% extends "base.html" %} {#模版继承，实现web框架复用#}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+	<nav class="navbar navbar-default navbar-static-top" role="navigation"> {#顶部导航栏#}
+		<a href="/logout/" class="btn btn-primary btn-sm navbar-btn">logout</a>
+		<ul class="nav navbar-nav navbar-right"> {#使logout按钮与提示信息同行，并使用属性navbar-right将提示信息靠右显示#}
+		<li>
+			{% if messages %}
+				{% for message in messages %}
+					<p class="text-right text-info">{{message}}</p>
+				{% endfor %}
+			{% endif %}
+			{% if user.is_authenticated %}
+				<p class="text-right text-success"> {#给标签赋予多个class的写法#}
+					Welcome,{{user.username}}.Thanks for logging in.
+				</p>
+			{% endif %}
+		</li>
+	</nav>
+	<div id="myCarousel" class="carousel slide" data-ride="carousel"> {#轮播实例；data-ride="carousel"表示页面加载时就开始轮播#}
+    	<!-- 轮播（Carousel）指标 -->
+    	<ol class="carousel-indicators">
+        	<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        	<li data-target="#myCarousel" data-slide-to="1"></li>
+        	<li data-target="#myCarousel" data-slide-to="2"></li>
+    	</ol>   
+    	<!-- 轮播（Carousel）项目 -->
+    	<div class="carousel-inner">
+        	<div class="item active">
+            	<img src="/static/picture/Yosemite.jpg" alt="First slide">
+            	<div class="carousel-caption">Yosemite 1</div>
+        	</div>
+        	<div class="item">
+            	<img src="/static/picture/Yosemite 2.jpg" alt="Second slide">
+            	<div class="carousel-caption">Yosemite 2</div>
+        	</div>
+        	<div class="item">
+            	<img src="/static/picture/Yosemite 5.jpg" alt="Third slide">
+            	<div class="carousel-caption">Yosemite 3</div>
+        	</div>
+    	</div>
+    	<!-- 轮播（Carousel）导航 -->
+    	<a class="carousel-control left" href="#myCarousel" data-slide="prev">
+    		&lsaquo;
+    	</a>
+    	<a class="carousel-control right" href="#myCarousel" data-slide="next">
+    		&rsaquo;
+    	</a>
+	</div>
+<div class="container"> {#style="margin-top:55px;"使正文在顶处导航条下方 navbar-fixed-top#}
+    <h1 class="page-header">Welcome Test Project</h1>
+    <nav class="navbar navbar-default" role="navigation" id="nav">
+    	<div class="navbar-header"> {#折叠模式导航条，主要适用于小屏幕#}
+    		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav1">
+    			<span class="sr-only">11111111</span>
+    			<span class="icon-bar"></span> {#折叠模式图标的绘制(3横线)#}
+    			<span class="icon-bar"></span>
+    			<span class="icon-bar"></span>
+    		</button>
+    		<a class="navbar-brand" href="#">Mode</a>{#折叠模式导航条头部，永久显示#}
+    	</div>
+    	<div class="collapse navbar-collapse" id="nav1">
+    		<ul class="nav nav-tabs">	{#普通标签页#}
+    			<li class="active"><a href="/index">Home</a></li>
+    			<li><a href="{{ app }}" data-toggle="tooltip" data-placement="bottom" title="Link to Job Application">Job_App</a></li> {#其中包括按钮提示功能#}
+    			<li><a href="{{ app2 }}" data-toggle="tooltip" data-placement="bottom" title="Link to Book Application">Book_App</a></li>
+    			<li><a href="#time1">Time</a></li>	{#滚动监听,链接名要与被监听者id相同#}
+    			{#滚动监听+自定义按钮提示#}
+    			<li><a href="#re_meta" data-toggle="popover" data-trigger="hover focus" data-container="body" data-placement="bottom" title="Jump to Request_MEAT" data-content="This is Request_MEAT">Requet_META</a></li>
+    			<li class="dropdown">
+     				<a href="#" class="btn dropdown-toggle" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" onClick="dropDown()">
+						Tools
+						<span class="caret"></span>
+					</a>
+					<script type="text/javascript"> 
+						function dropDown(){
+        					$('#dropdownMenu').dropdown();
+     					}
+     				</script>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu">
+    					<div class="btn-group">
+							<a href="/future/{{ offset }}/" class="btn btn-primary btn-sm">future</a>
+							<a href="/picture" class="btn btn-primary btn-sm">picture</a>  {#在超链接上加上按钮样式显示#}
+							<a href="/create_csv/" class="btn btn-primary btn-sm">create_csv</a>
+							<a href="/create_pdf/" class="btn btn-primary btn-sm">create_pdf</a>
+						</div>
+					</ul>
+    			</li>
+    			<li>{#通过按钮显示动态弹出框#}
+    				<a href="#" data-toggle="modal" data-target="#myModal">Demo_modal</a>{#定义触发按钮(链接形式)#}
+    				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+    						<div class="modal-content">
+      							<div class="modal-header">{#定义边框头部#}
+        							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        							<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      							</div>
+      							<div class="modal-body">{#定义框体内容#}
+      								this is the modal body~~~~~~~~
+      							</div>
+     							<div class="modal-footer">{#定义框体底部内容#}
+        							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        							{#定义按钮显示加载状态,需要js方法配合#}
+        							<button id="saving" type="button" class="btn btn-primary" data-loading-text="saving...." data-complete-text="Saving finished">Save changes</button>
+      							</div>
+    						</div>
+  						</div>
+					</div>
+    			</li>
+    		</ul>
+    	</div>
+    </nav>
+    <div data-spy="scroll" data-target="#nav" data-offset="0" style="height:200px;overflow:auto;position:relative;">{#规定滚动监听范围,data-target为监听此范围的导航条#}
+    <abbr title="Details">Detl:</abbr> {#鼠标悬停显示缩写全拼#}
+    <div class="row">
+    	<div class="col-md-4">  {#后边的数字是代表这一小部分占总列的几份。一行总共是有12份。#}
+    		<h5 class="page-header" id="time1">{{time}}</h5>
+    	</div>
+		{% comment %} {#多行注释#}
+	  		if逻辑
+		{% endcomment %}
+		{%if a and b%}
+			<div class="col-md-4">
+				<h5 class="page-header">a=1 and b=1</h5>
+			</div>
+		{%else%}
+			<div class="col-md-4">
+				<h5 class="page-header">a=0 or b=0</h5>
+			</div>
+		{%endif%}
+		{% comment %}
+	  	ifequal逻辑
+		{% endcomment %}
+		{%ifequal a b%}
+			<div class="col-xs-3">
+				<h5 class="page-header">ifqutal:a=b</h5>
+			</div>
+		{%else%}
+			<div class="col-xs-3">
+				<h5 class="page-header">ifqutal:a!=b</h5>
+			</div>
+		{%endifequal%}
+	</div>
+	<div class="row">
+		{%ifequal cstring "abc"%}
+			<div class="col-md-2">
+				<h5 class="page-header">ifqutal:cstring=abc</h5>
+			</div>
+		{%endifequal%}
+		<div class="col-md-2">
+			<h5 class="page-header">user:{{request.user}}</h5>
+		</div>
+		<div class="col-md-2">
+			<h5 class="page-header">{{request.path}}</h5>
+		</div>
+		<div class="col-md-2">
+			<h5 class="page-header">{{request.get_host}}</h5>
+		</div>
+		<div class="col-md-2">
+			<h5 class="page-header">{{request.get_full_path}}</h5>
+		</div>
+		<div class="col-md-2">
+			<h5 class="page-header">{{request.is_secure}}</h5>
+		</div>
+	</div>
+	{%for key,value in request_META%}
+		<blockquote id="re_meta">  {#将文本显示成引用形式#}
+			<li>{{key}}:{{value}}</li>
+			<small>Famous in <cite title="request_META">request_META</cite></small> {#显示引用来源#}
+		</blockquote>
+	{%endfor%}
+	</div> 
+	<div class="panel panel-info"> {#折叠栏实例#}
+		<div class="panel-heading">
+			<h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapseOne">
+                	Show Jumbotron
+                </a>
+                <a data-toggle="collapse" href="#collapseTwo">
+                	Show Jumbotron2
+                </a>
+            </h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+				<div class="jumbotron"> {#大屏幕介绍#}
+  					<h1>Hello, world!</h1>
+  					<p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  					<p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+				</div>
+			</div>
+		</div>
+		<div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+				<div class="jumbotron"> {#大屏幕介绍#}
+  					<h1>test</h1>
+  					<p>test two</p>
+  					<p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="alert alert-danger alert-dismissable"> {#警告框#}
+      	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> {#关闭警告框的叉子按钮#}
+      	<strong>Warning!</strong> Best check yo self, you're not looking too good. 
+	</div>
+	<div class="progress progress-striped active" id="progress_striped"> {#进度条实例#}
+  		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+    		<span class="sr-only">40% Complete (success)</span>
+  		</div>
+	</div>
+	<div class="panel panel-default"> {#面板框实例#}
+  		<div class="panel-heading">Panel heading</div>
+  		<div class="panel-body">
+    		<p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+    		<table class="table">  
+      			<thead>  
+        			<tr>  
+          				<th>First Name</th>  
+          				<th>Last Name</th>
+          				<th>User Name</th>  
+        			</tr>  
+      			</thead>  
+      			<tbody>  
+        			<tr>  
+          				<td>aehyok</td>  
+          				<td>leo</td> 
+          				<td>@aehyok</td>  
+        			</tr>
+        			<tr>  
+          				<td>lynn</td>  
+          				<td>thl</td> 
+          				<td>@lynn</td>  
+        			</tr>
+      			</tbody>  
+    		</table>  
+  		</div>
+  	</div>
+	<ul class="pagination"> {#分页实例#}
+      <li class="disabled"><a href="#">&laquo;</a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">&raquo;</a></li>
+    </ul> 
+</div>
+<script> {#激活按钮提示工具#}
+    $(function () { $("[data-toggle='tooltip']").tooltip(); });
+    $(function () { $("[data-toggle='popover']").popover(); });
+    $(function() { 
+        $("#saving").click(function(){
+            $(this).button('loading').delay(1000).queue(function() {
+                $(this).button('complete');
+            });        
+        });
+    });
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+

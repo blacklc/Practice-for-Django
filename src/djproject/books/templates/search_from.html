@@ -1,0 +1,22 @@
+{% extends "books_base.html" %} {#继承指定应用模版#}
+{% block title %}Search From{% endblock %}
+{% block content %}
+	{%if error%}
+		{%for error_detail in error%}
+			<p style="color:red;">{{error_detail}}</p>
+		{%endfor%}
+	{%endif%}
+	{#注意form的拼写#}
+	<form action="" method="get"> {#自定义应用使用action传url参数时，需注意在url路径最前边加上当前应用路径的前缀;action为空表示表单将提交给与当前页面相同的URL#}
+		<div class="row">
+			<div class="col-md-4">
+				<div class="input-group">  {#输入框旁附加按钮#}
+					<input type="text" name="book_title" class="form-control">
+					<span class="input-group-btn">
+						<input type="submit" value="Search" class="btn btn-success">
+					</span>
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}

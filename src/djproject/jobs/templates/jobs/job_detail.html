@@ -1,0 +1,22 @@
+{% extends "jobs/base_jobs.html" %}
+
+{% block title %}Job Detail{% endblock %}
+
+{% block content %}
+    <h1>Job Detail</h1>
+    <div class="job">
+        <div class="title">
+            {{ object.job_title }}-{{ object.location }}
+        </div>
+        <div class="posted">
+        	{#使用管道符与date过滤器来格式化日期格式#}
+            Posted: {{ object.pub_date|date:"d-M-Y" }}
+        </div>
+        <div class="description">
+            job detail:{{ object.job_description }}
+        </div>
+    </div>
+    {#加载其他模版，实现模版复用#}
+    {%include "templates/jobs/job_list.html"%}
+{% endblock %}
+

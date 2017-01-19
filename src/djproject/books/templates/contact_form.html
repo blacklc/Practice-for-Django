@@ -1,0 +1,17 @@
+{% extends "books_base.html" %} {#继承指定应用模版#}
+{% block title %}Contact form{% endblock %}
+{% block content %}
+	{%if form.errors%}
+		<p style="color:red;">
+			Please correct the error{{form.errors|pluralize}} below
+		</p>
+	{%endif%}
+	{#注意form的拼写#}
+	<form action="" method="post">{% csrf_token %}{#自定义应用使用action传url参数时，需注意在url路径最前边加上当前应用路径的前缀;action为空表示表单将提交给与当前页面相同的URL#}
+		<table>
+			{{form.as_table}}
+		</table>
+		<input type="submit" value="Submit">
+	</form>
+	<p>Context_processors test:{{context_test}}</p>
+{% endblock %}

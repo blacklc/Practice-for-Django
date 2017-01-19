@@ -1,0 +1,18 @@
+{% extends "books_base.html" %} {#继承指定应用模版#}
+{% block title %}Search request{% endblock %}
+{% block content %}
+	{% load test_tag %} {#加载自定义模版标签文件名#}
+	<p>search request</p>
+	{%for book in object%}
+		<li>title:{{book.title}}</li>
+		<li>publisher:{{book.publisher.name}}</li>
+		<li>publication_date:{{book.publication_date}}</li>
+		<li>
+			{% for result in book.authors.all %}
+				author:{{result.first_name}}.{{result.last_name}}
+			{% endfor %}
+		</li>
+	{%endfor%}
+	<p>This is the publisher_info:</p>
+	{% publisher_info %}
+{% endblock %}

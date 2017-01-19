@@ -1,0 +1,37 @@
+{% extends "jobs/base_jobs.html" %} {#继承指定应用模版#}
+
+{% block title %}Job List{% endblock %}
+
+{% block content %}
+    <h1>Job List</h1>
+    <div class="container">
+    	<div class="list-group">
+    		<ul>
+    			{%comment%}
+    				for循环
+   				{%endcomment%}
+    			{% for job in object_list %}
+    				{#forloop.counter:for循环内置计数器(从1开始)#}
+    				<li class="list-group-item active">This is the {{forloop.counter}} loop:</li>
+    			{#forloop.first:如果本次循环是第一次，则返回True#}
+    			{%if forloop.first%}
+    				<li class="list-group-item">This is the first loop:</li>
+        			<li class="list-group-item">{{ job.id }}.<a href="{{ job.id }}">{{ job.job_title }};</a></li>
+        		{%else%}
+        			{#forloop.last:如果本次循环是最后一次，则返回True#}
+        			{%if not forloop.last%}
+        				<li class="list-group-item">{{ job.id }}.<a href="{{ job.id }}">{{ job.job_title }};</a></li>
+        			{%else%}
+        				<li class="list-group-item">{{ job.id }}.<a href="{{ job.id }}">{{ job.job_title }}</a></li>
+        			{%endif%}
+        		{%endif%}
+        			{#forloop.revcounter:返回剩余循环次数#}
+        			<li class="list-group-item">the are {{forloop.revcounter}} need to loop</li>
+    			{#empty:for标签内置的判断迭代对象是否为空的标签#}
+    			{%empty%}
+        			<h1>object_list is empty</h1>
+    			{% endfor %}
+    		</ul>
+    	</div>
+    </div>
+{% endblock %}

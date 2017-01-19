@@ -1,0 +1,22 @@
+{% extends "books_base.html" %} {#继承指定应用模版#}
+{% block title %}publisher list{% endblock %}
+{% block content %}
+	<p>Author:</p>
+	{% for a in author_list %}
+		<li>first_name:{{a.first_name}}</li>
+		<li>last_name:{{a.last_name}}</li>
+		<li>email:{{a.email}}</li>
+		<li>last_accessed:{{a.last_accessed}}</li>
+		</br>
+	{% endfor %}
+	<p>Author's BOOK:</p>
+	{% for b in extra_context %}
+		<li>title:{{b.title}}</li>
+		<li>authors:{{b.authors.name}}</li>
+		<li>publisher:{{b.publisher}}</li>
+		<li>state_province:{{p.state_province}}</li>
+		<li>publication_date:{{b.publication_date}}</li>
+		<li>num_pages:{{b.num_pages}}</li>
+		</br>
+	{% endfor %}
+{% endblock %}
